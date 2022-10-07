@@ -9,7 +9,7 @@ import frc.robot.SubSystems.Chassis;
 
 public class PIDDriveBySuppliers extends CommandBase {
 
-    private double error,lastError=0,integral,derivative,target;
+    private double error,lastError=0,integral,derivative,target,stopRange;
     private Supplier<Float> value;
 
     public PIDDriveBySuppliers(Supplier<Float> s, double t){
@@ -34,7 +34,8 @@ public class PIDDriveBySuppliers extends CommandBase {
 
     @Override
     public boolean isFinished() {
-
+        if(error<stopRange)
+            return true;        
         return false;
     }
 }

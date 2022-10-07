@@ -4,11 +4,18 @@
 
 package frc.robot;
 
+import org.ejml.ops.ConvertMatrixData;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.Vision;
@@ -17,6 +24,7 @@ import frc.robot.Commands.DriveBySuplliers;
 import frc.robot.Commands.EncoderPID;
 import frc.robot.Commands.PIDDriveBySuppliers;
 import frc.robot.Commands.Shoot;
+import frc.robot.Commands.TurnToAngle;
 import frc.robot.Commands.VectorDrive;
 import frc.robot.SubSystems.Chassis;
 
@@ -43,16 +51,32 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+  
+  
   }
-
+  Vision target = new Vision(0); //SECOND VISION TO THE TARGET
   @Override
   public void autonomousInit() {
+    CommandBase driveToBall = new PIDDriveBySuppliers(v::getZ,0).andThen
+    (new RunCommand(()->Chassis.getInstance().driveStraight(Constants.Speeds.extraSpeed), Chassis.getInstance()).withTimeout(0.2));
+    
+    new SequentialCommandGroup(new ParallelDeadlineGroup(driveToBall,
+    new Collect()), new TurnToAngle(0),new PIDDriveBySuppliers(target::getZ, 1),new Shoot()).schedule(); 
+    
+    /*
+  1.drive and collect ball
+  2.turn around until target's degree is equal to 0
+  3.drive to the target
+  4.shoot
+    */
   }
 
   @Override
   public void autonomousPeriodic() {
     CommandScheduler.getInstance().run();
   }
+
+
 
   @Override
   public void teleopInit() {
