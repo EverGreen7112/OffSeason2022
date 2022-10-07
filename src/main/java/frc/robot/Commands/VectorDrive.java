@@ -6,13 +6,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.Controls;
 import frc.robot.SubSystems.Chassis;
-import frc.robot.SubSystems.Constants;
 
 public class VectorDrive extends CommandBase{
-
-    private static VectorDrive m_instance=null;
 
     private Supplier<Double> m_rightSupllier;
     private Supplier<Double> m_leftSupllier;
@@ -21,21 +19,6 @@ public class VectorDrive extends CommandBase{
         addRequirements(Chassis.getInstance());
         m_rightSupllier=right;
         m_leftSupllier=left;
-    }
-
-    public static VectorDrive getInstance(){
-        if(m_instance==null){
-            m_instance=new VectorDrive(new Supplier<Double>(){
-                   public Double get(){
-                          return Controls.m_leftJoystick.getY() ; }    
-            },
-             new Supplier<Double>(){
-                   public Double get(){
-                          return Controls.m_rightJoystick.getY();
-                        }    
-            });
-        }
-        return m_instance;
     }
     
     @Override

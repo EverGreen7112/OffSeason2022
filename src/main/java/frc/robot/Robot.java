@@ -11,10 +11,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.Vision;
 import frc.robot.Commands.Collect;
 import frc.robot.Commands.DriveBySuplliers;
-import frc.robot.Commands.DriveForward;
-import frc.robot.Commands.DriveToCenter;
+import frc.robot.Commands.EncoderPID;
+import frc.robot.Commands.PIDDriveBySuppliers;
 import frc.robot.Commands.Shoot;
 import frc.robot.Commands.VectorDrive;
 import frc.robot.SubSystems.Chassis;
@@ -46,7 +47,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    CommandScheduler.getInstance().schedule(DriveForward.getInstance().withTimeout(0.5));
   }
 
   @Override
@@ -73,42 +73,26 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
   }
 
+  Vision v=new Vision(7112);
+  PIDDriveBySuppliers d = new PIDDriveBySuppliers(v::getZ, 4);
+  EncoderPID e = new EncoderPID();
+
   @Override
   public void testInit() {
     Chassis.getInstance();
    SmartDashboard.putNumber("motorSpeed", 0.4);
    Controls.m_b0.whileHeld(new Collect());
    Controls.m_b1.whileHeld(new Shoot());
-   
-  //  Chassis.getInstance();
-  //  if (Chassis.getInstance().getDefaultCommand() == null)
-      //Chassis.getInstance().setDefaultCommand(new VectorDrive(Controls.m_leftJoystick::getY, Controls.m_rightJoystick::getY));
-      // Chassis.getInstance().setDefaultCommand(new PrintCommand("Hello1"));
-
-    //  Chassis.getInstance().setDefaultCommand(new VectorDrive(Controls.m_leftJoystick::getY, Controls.m_rightJoystick::getY));
   }
 
   @Override
   public void testPeriodic() {
-    //  VectorDrive.getInstance().execute();
-    DriveToCenter.getInstance().execute();
-    // CommandScheduler.getInstance().schedule(new VectorDrive(Controls.m_leftJoystick::getY, Controls.m_rightJoystick::getY));
-    // CommandScheduler.getInstance().run();
-    // SmartDashboard.putString("defCom", Chassis.getInstance().getDefaultCommand() != null?Chassis.getInstance().getDefaultCommand().toString(): "null");
-    
   }
-  // @Override
-  // public void testExit() {
-  //   CommandBase s = new WaitCommand(0.1);
-  //   s.addRequirements(PrintCommand);
-  //   Chassis.getInstance().setDefaultCommand(s);
-  //   SmartDashboard.putString("defCom", Chassis.getInstance().getDefaultCommand() != null?Chassis.getInstance().getDefaultCommand().toString(): "null");
-  // }
 
   @Override
   public void testExit() {
-    Chassis.getInstance().setDefaultCommand(new VectorDrive(Controls.m_leftJoystick::getY, Controls.m_rightJoystick::getY));
-  }
+
+   }
 
   @Override
   public void simulationInit() {

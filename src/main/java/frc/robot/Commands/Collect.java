@@ -1,8 +1,8 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.SubSystems.Collector;
-import frc.robot.SubSystems.Constants;
 import frc.robot.SubSystems.Passer;
 
 public class Collect extends CommandBase implements Constants {

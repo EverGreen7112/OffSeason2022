@@ -2,8 +2,8 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.Vision;
+import frc.robot.Constants;
 import frc.robot.SubSystems.Chassis;
-import frc.robot.SubSystems.Constants;
 
 public class TurnToAngle extends CommandBase{
 

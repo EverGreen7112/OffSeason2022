@@ -78,6 +78,16 @@ public class Vision {
         return m_locals; 
     }
 
+    public float getX(){
+        this.getLocals();
+        return m_locals[0];
+    }
+
+    public float getZ(){
+        this.getLocals();
+        return m_locals[2];
+    }
+
     public double getAngleX(){
         this.getLocals();
         float[] temp=getXYZ();

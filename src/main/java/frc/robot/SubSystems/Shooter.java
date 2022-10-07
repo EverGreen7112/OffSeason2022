@@ -3,6 +3,7 @@ package frc.robot.SubSystems;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.Vision;
+import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase implements Constants {
     private MotorController m_shootController;

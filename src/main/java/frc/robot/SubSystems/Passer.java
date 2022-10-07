@@ -2,6 +2,7 @@ package frc.robot.SubSystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Passer extends SubsystemBase implements Constants{
     private MotorController m_passController;

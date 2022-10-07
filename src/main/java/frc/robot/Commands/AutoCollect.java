@@ -2,9 +2,9 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.Times;
 import frc.robot.SubSystems.Collector;
 import frc.robot.SubSystems.Passer;
-import frc.robot.SubSystems.Constants.Times;
 
 public class AutoCollect extends CommandBase {
     private boolean m_finishedPhase1 = false;

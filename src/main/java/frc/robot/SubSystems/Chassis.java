@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.SubSystems.Constants.Speeds;
+import frc.robot.Constants;
+import frc.robot.Constants.Speeds;
 
 public class Chassis extends SubsystemBase {
 
