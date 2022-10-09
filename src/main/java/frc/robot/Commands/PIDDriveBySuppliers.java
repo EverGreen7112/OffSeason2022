@@ -12,10 +12,11 @@ public class PIDDriveBySuppliers extends CommandBase {
     private double error,lastError=0,integral,derivative,target,stopRange;
     private Supplier<Float> value;
 
-    public PIDDriveBySuppliers(Supplier<Float> s, double t){
+    public PIDDriveBySuppliers(Supplier<Float> s, double t, double range){
         addRequirements(Chassis.getInstance());
         this.target = t;
         value=s;
+        stopRange=range;
     }
 
     @Override

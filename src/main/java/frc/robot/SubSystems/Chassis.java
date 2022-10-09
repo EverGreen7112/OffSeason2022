@@ -3,26 +3,19 @@ package frc.robot.SubSystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.drive.Vector2d;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.Speeds;
 
 public class Chassis extends SubsystemBase {
 
     private MotorControllerGroup rightMotors;
     private MotorControllerGroup leftMotors;
 
-    private WPI_TalonSRX m_rightEngineTalonFront;
-    private WPI_TalonSRX m_rightEngineTalonMiddle;
-    private WPI_TalonSRX m_rightEngineTalonBack;
-    private WPI_TalonSRX m_leftEngineTalonFront;
-    private WPI_TalonSRX m_leftEngineTalonMiddle;
-    private WPI_TalonSRX m_leftEngineTalonBack;
+    private WPI_TalonSRX m_rightEngineTalonFront, m_rightEngineTalonMiddle, m_rightEngineTalonBack;
+    private WPI_TalonSRX m_leftEngineTalonFront, m_leftEngineTalonMiddle, m_leftEngineTalonBack;
 
-    private WPI_VictorSPX m_rightEngineVictorFront, m_rightEngineVictorMiddle, m_rightEngineVictorBack, m_leftEngineVictorFront, m_leftEngineVictorMiddle, m_leftEngineVictorBack;
+    // private WPI_VictorSPX m_rightEngineVictorFront, m_rightEngineVictorMiddle, m_rightEngineVictorBack, m_leftEngineVictorFront, m_leftEngineVictorMiddle, m_leftEngineVictorBack;
     private static Chassis m_instance=null;
 
     private Chassis(){

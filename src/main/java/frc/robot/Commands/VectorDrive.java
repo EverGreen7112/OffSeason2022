@@ -2,7 +2,6 @@ package frc.robot.Commands;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -27,6 +26,7 @@ public class VectorDrive extends CommandBase{
         double lSpeed=-m_leftSupllier.get();
         Vector2d v=new Vector2d(lSpeed, rSpeed);
         if(v.magnitude()>Constants.Speeds.motorSpeed.get()){
+            //normalizing the vector.
             v.x/=(v.magnitude());
             v.y/=(v.magnitude());
             v.x*=Constants.Speeds.motorSpeed.get();
