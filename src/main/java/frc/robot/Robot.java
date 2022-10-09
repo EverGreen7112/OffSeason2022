@@ -70,11 +70,11 @@ public class Robot extends TimedRobot {
   public static Vision target = new Vision(5800); //second vision to the target
   @Override
   public void autonomousInit() {
-    CommandBase driveToBall = new PIDDriveBySuppliers(v::getZ,0).andThen
+    CommandBase driveToBall = new PIDDriveBySuppliers(v::getZ,0, 0.1).andThen
     (new RunCommand(()->Chassis.getInstance().driveStraight(Constants.Speeds.extraSpeed), Chassis.getInstance()).withTimeout(0.2));
     
     new SequentialCommandGroup(new ParallelDeadlineGroup(driveToBall,
-    new Collect()), new TurnToAngle(0),new PIDDriveBySuppliers(target::getZ, 1),new Shoot()).schedule(); 
+    new Collect()), new TurnToAngle(0),new PIDDriveBySuppliers(target::getZ, 1, 0.1),new Shoot()).schedule(); 
     
    
   // 1.drive and collect ball
@@ -111,7 +111,7 @@ public class Robot extends TimedRobot {
   }
 
 
-  PIDDriveBySuppliers d = new PIDDriveBySuppliers(v::getZ, 4);
+  PIDDriveBySuppliers d = new PIDDriveBySuppliers(v::getZ, 4, 0.1);
   EncoderPID e = new EncoderPID();
 
   @Override
