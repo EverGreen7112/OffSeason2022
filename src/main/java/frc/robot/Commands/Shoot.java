@@ -1,8 +1,6 @@
 package frc.robot.Commands;
-
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.SubSystems.Passer;
@@ -14,7 +12,7 @@ public class Shoot extends CommandBase implements Constants {
     private double m_startTime = 0;
 
 
-    public Shoot(Supplier<Boolean> startPassing,Function<Double,Double> distnceToPower) {
+    public Shoot(Supplier<Boolean> startPassing) {
         addRequirements(Shooter.getInstance(), Passer.getInstance());
         m_startPassing = startPassing;
     }
@@ -26,9 +24,9 @@ public class Shoot extends CommandBase implements Constants {
     @Override
     public void initialize() {
         m_startTime = System.currentTimeMillis();
-        //TODO choose here which shooting type we use from shoot or shotByDistance
         Shooter.getInstance().shoot();
     }
+
     @Override
     public void execute() {
         m_diffSec = (System.currentTimeMillis() - m_startTime);
@@ -36,6 +34,7 @@ public class Shoot extends CommandBase implements Constants {
             Passer.getInstance().pass();
         }
     }
+
     @Override
     public void end(boolean interrupted) {
         Passer.getInstance().stop();

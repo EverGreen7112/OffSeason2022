@@ -85,7 +85,7 @@ public interface Constants {
 
                 passerSpeed = 1,
 
-                SHOOT_SPEED = 0.5;
+                SHOOT_SPEED = 0.5,
 
                 extraSpeed = 0.1;
         public static Supplier<Double> motorSpeed = () -> {

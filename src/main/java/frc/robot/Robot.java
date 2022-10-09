@@ -6,6 +6,9 @@ package frc.robot;
 
 import org.ejml.ops.ConvertMatrixData;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -38,23 +41,33 @@ import frc.robot.SubSystems.Chassis;
  * project.
  */
 public class Robot extends TimedRobot {
-
-
   /**
    * This function is run when the robot is first started up and should be used
    * for any
    * initialization code.
    */
+  // private NetworkTableInstance m_instance;
+  // private NetworkTable m_table;
+  // private NetworkTableEntry angle,distance,canSee;
+  
+  
+
   @Override
   public void robotInit() {
+    // m_instance = NetworkTableInstance.getDefault();
+    // m_table = m_instance.getTable("key");
+    // angle = m_table.getEntry("angle");
+    // distance = m_table.getEntry("distance");
+    // canSee = m_table.getEntry("canSee");
+  
+  
   }
 
   @Override
   public void robotPeriodic() {
-  
-  
   }
-  Vision target = new Vision(0); //SECOND VISION TO THE TARGET
+  public static Vision v=new Vision(7112);
+  public static Vision target = new Vision(5800); //second vision to the target
   @Override
   public void autonomousInit() {
     CommandBase driveToBall = new PIDDriveBySuppliers(v::getZ,0).andThen
@@ -63,12 +76,12 @@ public class Robot extends TimedRobot {
     new SequentialCommandGroup(new ParallelDeadlineGroup(driveToBall,
     new Collect()), new TurnToAngle(0),new PIDDriveBySuppliers(target::getZ, 1),new Shoot()).schedule(); 
     
-    /*
-  1.drive and collect ball
-  2.turn around until target's degree is equal to 0
-  3.drive to the target
-  4.shoot
-    */
+   
+  // 1.drive and collect ball
+  // 2.turn around until target's degree is equal to 0
+  // 3.drive to the target
+  // 4.shoot
+    
   }
 
   @Override
@@ -97,13 +110,13 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
   }
 
-  Vision v=new Vision(7112);
+
   PIDDriveBySuppliers d = new PIDDriveBySuppliers(v::getZ, 4);
   EncoderPID e = new EncoderPID();
 
   @Override
   public void testInit() {
-    Chassis.getInstance();
+   Chassis.getInstance();
    SmartDashboard.putNumber("motorSpeed", 0.4);
    Controls.m_b0.whileHeld(new Collect());
    Controls.m_b1.whileHeld(new Shoot());
@@ -115,8 +128,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testExit() {
-
-   }
+  }
 
   @Override
   public void simulationInit() {
