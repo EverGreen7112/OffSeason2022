@@ -25,7 +25,7 @@ public class AutoCollect extends CommandBase {
         if(!m_finishedPhase1){
             Collector.getInstance().collect();
             if(System.currentTimeMillis() - m_startTime >Times.autoCollectSeconds * 1000){
-                Collector.getInstance().stop();
+                Collector.getInstance().stopCollecting();
                 m_finishedPhase1 = true;
             }
         }

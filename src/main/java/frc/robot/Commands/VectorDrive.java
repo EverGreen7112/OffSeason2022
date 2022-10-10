@@ -25,12 +25,12 @@ public class VectorDrive extends CommandBase{
         double rSpeed=-m_rightSupllier.get();
         double lSpeed=-m_leftSupllier.get();
         Vector2d v=new Vector2d(lSpeed, rSpeed);
-        if(v.magnitude()>Constants.Speeds.motorSpeed.get()){
+        if(v.magnitude()>Constants.Speeds.driveMax.get()){
             //normalizing the vector.
             v.x/=(v.magnitude());
             v.y/=(v.magnitude());
-            v.x*=Constants.Speeds.motorSpeed.get();
-            v.y*=Constants.Speeds.motorSpeed.get();
+            v.x*=Constants.Speeds.driveMax.get();
+            v.y*=Constants.Speeds.driveMax.get();
         }
         lSpeed=v.x;
         rSpeed=v.y;

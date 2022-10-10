@@ -32,6 +32,7 @@ public class Chassis extends SubsystemBase {
 
         leftMotors=new MotorControllerGroup(m_leftEngineTalonFront, m_leftEngineTalonMiddle,m_leftEngineTalonBack);
         rightMotors=new MotorControllerGroup(m_rightEngineTalonFront, m_rightEngineTalonMiddle,m_rightEngineTalonBack);
+        rightMotors.setInverted(true);
         // rightMotors.setInverted(true);
     }
 

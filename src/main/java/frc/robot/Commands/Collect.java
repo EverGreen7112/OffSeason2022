@@ -16,17 +16,27 @@ public class Collect extends CommandBase implements Constants {
 
     @Override
     public void initialize() {
+        m_finishTime = System.currentTimeMillis();
+        Collector.getInstance().lowerCollector();
         Collector.getInstance().collect();
+        DownPasser.getInstance().pass();
+        while (System.currentTimeMillis() - m_finishTime < Times.lowerCollectorSec * 1000)
+            ;
+        Collector.getInstance().stopLifting();
+
     }
 
     @Override
     public void end(boolean interrupted) {
         m_finishTime = System.currentTimeMillis();
-        Collector.getInstance().stop();
-        DownPasser.getInstance().pass();
-        while (System.currentTimeMillis() - m_finishTime < Times.passSeconds * 1000)
+        Collector.getInstance().stopCollecting();
+        Collector.getInstance().liftCollector();
+        while (System.currentTimeMillis() - m_finishTime < Times.liftCollectorSec * 1000)
             ;
+        Collector.getInstance().stopLifting();
         DownPasser.getInstance().stop();
+
+        ;
 
     }
 }

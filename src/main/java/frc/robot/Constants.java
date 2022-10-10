@@ -96,10 +96,13 @@ public interface Constants {
 
                 SHOOT_SPEED = 0.5,
 
-                extraSpeed = 0.1;
-        public static Supplier<Double> motorSpeed = () -> {
-            return SmartDashboard.getNumber("motorSpeed", 0.1);
+                extraSpeed = 0.1,
+                liftCollector = 0.4,
+                lowerCollector = -0.4;
+        public static Supplier<Double> driveMax = () -> {
+            return SmartDashboard.getNumber("motorSpeed", 0.8);
         };
+        public static double speedFactor = 0.6;
 
     }
 
@@ -107,6 +110,8 @@ public interface Constants {
         public static double autoCollectSeconds = 2;
         public static double passSeconds = 0.3;
         public static double secondsFromShottToPass = 0.3;
+        public static double lowerCollectorSec = 0.5;
+        public static double liftCollectorSec = 0.5;
     }
 
     public static interface DriveConstants {

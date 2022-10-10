@@ -2,8 +2,10 @@ package frc.robot.Commands;
 import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.SubSystems.Collector;
 import frc.robot.SubSystems.DownPasser;
 import frc.robot.SubSystems.Shooter;
+import frc.robot.SubSystems.UpPasser;
 
 public class Shoot extends CommandBase implements Constants {
     private Supplier<Boolean> m_startPassing;
@@ -22,6 +24,10 @@ public class Shoot extends CommandBase implements Constants {
 
     @Override
     public void initialize() {
+        Collector.getInstance().lowerCollector();
+        m_startTime = System.currentTimeMillis();
+        while(System.currentTimeMillis() -  m_startTime < 1000*Times.lowerCollectorSec);
+        Collector.getInstance().stopLifting();
         m_startTime = System.currentTimeMillis();
         Shooter.getInstance().shoot();
     }
@@ -31,12 +37,14 @@ public class Shoot extends CommandBase implements Constants {
         m_diffSec = (System.currentTimeMillis() - m_startTime);
         if (m_startPassing.get()) {
             DownPasser.getInstance().pass();
+            UpPasser.getInstance().upPass();
         }
     }
 
     @Override
     public void end(boolean interrupted) {
         DownPasser.getInstance().stop();
+        UpPasser.getInstance().upPass();
         Shooter.getInstance().stop();
     }
 }

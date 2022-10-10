@@ -32,7 +32,9 @@ import frc.robot.Commands.PIDDriveBySuppliers;
 import frc.robot.Commands.Shoot;
 import frc.robot.Commands.TurnToAngle;
 import frc.robot.Commands.VectorDrive;
+import frc.robot.Constants.Speeds;
 import frc.robot.SubSystems.Chassis;
+import frc.robot.SubSystems.Collector;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -96,7 +98,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    Chassis.getInstance().setDefaultCommand(DriveBySuplliers.getInstance());
+    Chassis.getInstance().setDefaultCommand(new VectorDrive(() ->Controls.m_leftJoystick.getY() * Speeds.speedFactor, () ->Controls.m_rightJoystick.getY() * Speeds.speedFactor));
   }
 
   @Override
@@ -121,8 +123,9 @@ public class Robot extends TimedRobot {
   public void testInit() {
    Chassis.getInstance();
    SmartDashboard.putNumber("motorSpeed", 0.4);
-   Controls.m_b0.whileHeld(new Collect());
-   Controls.m_b1.whileHeld(new Shoot());
+   Controls.m_b0.toggleWhenActive(new Collect());
+    // Collector.getInstance().liftCollector();
+    Collector.getInstance().lowerCollector();
 
   }
 
