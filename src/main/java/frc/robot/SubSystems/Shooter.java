@@ -19,7 +19,7 @@ public class Shooter extends SubsystemBase implements Constants {
         // initilize controllers by type
         m_shootController = new WPI_TalonSRX(MotorPorts.shoot);
     } 
-
+ 
     public static Shooter getInstance() {
         if (m_instance == null) {
             m_instance = new Shooter();
@@ -29,10 +29,10 @@ public class Shooter extends SubsystemBase implements Constants {
 
     public void shoot() {
         //distance from the target 
-        double distance = Math.sqrt(Math.pow(Robot.v.getX()-Robot.target.getX(),2) + 
-        Math.pow(Robot.target.getZ()-Robot.v.getZ(),2));
+        double distance = Math.sqrt(Math.pow(Robot.ball_Vision.getX()-Robot.hub_Vision.getX(),2) + 
+        Math.pow(Robot.hub_Vision.getZ()-Robot.ball_Vision.getZ(),2));
         
-        m_shootController.set(calcTrajectory.calcSpeed(distance, Robot.v.getXYZ()[1], Robot.v.getAngleX()));
+        m_shootController.set(calcTrajectory.calcSpeed(distance, Robot.ball_Vision.getXYZ()[1], Robot.ball_Vision.getAngleX()));
     }
 
     // public void shootbyPower(double power) {

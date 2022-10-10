@@ -17,7 +17,7 @@ public class EncoderPID extends CommandBase{
     public EncoderPID(){
         m_encoder=new Encoder(1, 0);
         //need to calibrate distance correctly
-        m_encoder.setDistancePerPulse(1.55);
+        m_encoder.setDistancePerPulse((Math.PI*0.1)/(18*5));
         //resets the encoder's count and distance and makes it ready for use.
         m_encoder.reset();
         //gets time for use in speed calculations.

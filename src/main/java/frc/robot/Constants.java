@@ -7,6 +7,7 @@ package frc.robot;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.drive.Vector2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public interface Constants {
@@ -132,15 +133,15 @@ public interface Constants {
         // can probably remove these later
 
         // Angle PID Variables \\
-        ANGLE_KP = 0.04,
-                ANGLE_KI = 0.001,
-                ANGLE_KD = 0.006,
+                ANGLE_KP = 0.0064,
+                ANGLE_KI = 0.000001*0,
+                ANGLE_KD = 0.0001,
                 ANGLE_TOLERANCE = 0.25,
 
                 // Velocity PID Variables \\
-                VELOCITY_KP = 0.0468 * 1.7,
-                VELOCITY_KI = 0.0011,
-                VELOCITY_KD = 0.01,
+                VELOCITY_KP = 0.1468 ,
+                VELOCITY_KI = 0.001,
+                VELOCITY_KD = 0.001,
 
                 // Distance PID Varibles \\
                 DISTANCE_KP = 0,
@@ -155,6 +156,11 @@ public interface Constants {
 
                 ENCODER_LEFT_ONE = 0,
                 ENCODER_LEFT_TWO = 1;
+    }
+
+    public static interface Vectors{
+        public Vector2d angleVector=new Vector2d(0,0);
+        public Vector2d distanceVector=new Vector2d(0,0);
     }
 
 }

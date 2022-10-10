@@ -14,8 +14,8 @@ public class PIDDriveBySuppliers extends CommandBase {
 
     public PIDDriveBySuppliers(Supplier<Float> s, double t, double range){
         addRequirements(Chassis.getInstance());
-        this.target = t;
         value=s;
+        this.target = t;
         stopRange=range;
     }
 
@@ -23,14 +23,16 @@ public class PIDDriveBySuppliers extends CommandBase {
     public void execute() {
         error = target - value.get();
         derivative=lastError-error;
-        double fs=error*Constants.PID.VELOCITY_KP+integral*Constants.PID.VELOCITY_KI-derivative*Constants.PID.VELOCITY_KD;
-        Chassis.getInstance().driveTank(fs, fs);
-        SmartDashboard.putNumber("speed", fs);
+        double speed=error*Constants.PID.VELOCITY_KP+integral*Constants.PID.VELOCITY_KI-derivative*Constants.PID.VELOCITY_KD;
+        Chassis.getInstance().driveStraight(speed); 
+        integral+=error;
+        lastError=error;
+        SmartDashboard.putNumber("speed", speed);
         SmartDashboard.putNumber("distance", value.get());
         SmartDashboard.putNumber("error", error);
-        integral+=error;
         SmartDashboard.putNumber("integral", integral);
-        lastError=error;
+        Constants.Vectors.distanceVector.x=speed;
+        Constants.Vectors.distanceVector.y=speed;
     }
 
     @Override

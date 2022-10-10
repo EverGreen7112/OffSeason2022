@@ -15,17 +15,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.Vision;
 import frc.robot.Commands.Collect;
+import frc.robot.Commands.DistancePlusAngle;
 import frc.robot.Commands.DriveBySuplliers;
 import frc.robot.Commands.EncoderPID;
 import frc.robot.Commands.PIDDriveBySuppliers;
@@ -59,27 +55,20 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    // m_instance = NetworkTableInstance.getDefault();
-    // m_table = m_instance.getTable("key");
-    // angle = m_table.getEntry("angle");
-    // distance = m_table.getEntry("distance");
-    // canSee = m_table.getEntry("canSee");
-  
-  
   }
 
   @Override
   public void robotPeriodic() {
   }
-  public static Vision v=new Vision(7112);
-  public static Vision target = new Vision(5800); //second vision to the target
+  public static Vision ball_Vision = new Vision(5801);
+  public static Vision hub_Vision = new Vision(5800);
   @Override
   public void autonomousInit() {
-    CommandBase driveToBall = new PIDDriveBySuppliers(v::getZ,0, 0.1).andThen
+    CommandBase driveToBall = new PIDDriveBySuppliers(ball_Vision::getZ,0, 0.1).andThen
     (new RunCommand(()->Chassis.getInstance().driveStraight(Constants.Speeds.extraSpeed), Chassis.getInstance()).withTimeout(0.2));
     
     new SequentialCommandGroup(new ParallelDeadlineGroup(driveToBall,
-    new Collect()), new TurnToAngle(0),new PIDDriveBySuppliers(target::getZ, 1, 0.1),new Shoot()).schedule(); 
+    new Collect()), new TurnToAngle(0),new PIDDriveBySuppliers(hub_Vision::getZ, 1, 0.1),new Shoot()).schedule(); 
     
    
   // 1.drive and collect ball
@@ -116,8 +105,10 @@ public class Robot extends TimedRobot {
   }
 
 
-  PIDDriveBySuppliers d = new PIDDriveBySuppliers(v::getZ, 4, 0.1);
-  EncoderPID e = new EncoderPID();
+  PIDDriveBySuppliers PIDDBS = new PIDDriveBySuppliers(ball_Vision::getZ, 1, 0);
+  EncoderPID ePID = new EncoderPID();
+  TurnToAngle TTA = new TurnToAngle(0);
+  DistancePlusAngle DPA = new DistancePlusAngle(1);
 
   @Override
   public void testInit() {
@@ -131,7 +122,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-    
+    // TTA.execute();
+    // DPA.execute();
+    // PIDDBS.execute();
+    Chassis.getInstance().driveTank(0, 0.5);
   }
 
   @Override
