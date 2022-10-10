@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Times;
 import frc.robot.SubSystems.Collector;
-import frc.robot.SubSystems.Passer;
+import frc.robot.SubSystems.DownPasser;
 
 public class AutoCollect extends CommandBase {
     private boolean m_finishedPhase1 = false;
@@ -12,7 +12,7 @@ public class AutoCollect extends CommandBase {
     private long m_startTime;
 
     public AutoCollect() {
-        addRequirements(Collector.getInstance(), Passer.getInstance());
+        addRequirements(Collector.getInstance(), DownPasser.getInstance());
     }
 
     @Override
@@ -30,9 +30,9 @@ public class AutoCollect extends CommandBase {
             }
         }
         if(m_finishedPhase1){
-            Passer.getInstance().pass();
+            DownPasser.getInstance().pass();
             if(System.currentTimeMillis()- m_startTime >(Times.autoCollectSeconds +Times.passSeconds)*60 * 1000){
-                Passer.getInstance().stop();
+                DownPasser.getInstance().stop();
                 m_finishedPhase2 = true;
             }
         }      

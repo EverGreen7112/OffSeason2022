@@ -2,7 +2,7 @@ package frc.robot.Commands;
 import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.SubSystems.Passer;
+import frc.robot.SubSystems.DownPasser;
 import frc.robot.SubSystems.Shooter;
 
 public class Shoot extends CommandBase implements Constants {
@@ -12,11 +12,11 @@ public class Shoot extends CommandBase implements Constants {
 
 
     public Shoot(Supplier<Boolean> startPassing) {
-        addRequirements(Shooter.getInstance(), Passer.getInstance());
+        addRequirements(Shooter.getInstance(), DownPasser.getInstance());
         m_startPassing = startPassing;
     }
     public Shoot() {
-        addRequirements(Shooter.getInstance(), Passer.getInstance());
+        addRequirements(Shooter.getInstance(), DownPasser.getInstance());
         m_startPassing = ()->m_diffSec > Times.secondsFromShottToPass;
     }
 
@@ -30,13 +30,13 @@ public class Shoot extends CommandBase implements Constants {
     public void execute() {
         m_diffSec = (System.currentTimeMillis() - m_startTime);
         if (m_startPassing.get()) {
-            Passer.getInstance().pass();
+            DownPasser.getInstance().pass();
         }
     }
 
     @Override
     public void end(boolean interrupted) {
-        Passer.getInstance().stop();
+        DownPasser.getInstance().stop();
         Shooter.getInstance().stop();
     }
 }
