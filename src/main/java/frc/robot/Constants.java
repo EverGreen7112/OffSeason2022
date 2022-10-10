@@ -20,10 +20,19 @@ public interface Constants {
         // chassisLeftFront = 10,
         // chassisLeftMiddle = 6,
         // chassisLeftBack = 2,
-        chassisRightFront = 0,
-                chassisRightMiddle = 1,
-                chassisLeftFront = 2,
-                chassisLeftMiddle = 3;
+        chassisRightFront = 12,
+        chassisRightMiddle = 1,
+        chassisLeftFront = 1,
+        chassisLeftMiddle = 153,
+        chassisLeftBack = 14,
+        chassisRightBack = 3,
+        chassisMidRight = 13,
+        shoot = 0,
+        passUp = 6,
+        collectUpAndDown= 7,
+        climb = 4,
+        collect = 5,
+        downPasser =2;
 
         // FLY_WHEEL = 1,
 
@@ -96,8 +105,8 @@ public interface Constants {
 
     public static interface Times {
         public static double autoCollectSeconds = 2;
-        public static double passSeconds =0.3;
-        public static double secondsFromShottToPass =0.3;
+        public static double passSeconds = 0.3;
+        public static double secondsFromShottToPass = 0.3;
     }
 
     public static interface DriveConstants {
