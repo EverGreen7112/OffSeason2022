@@ -1,5 +1,6 @@
 package frc.robot.SubSystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -9,14 +10,14 @@ import frc.calcTrajectory;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class Shooter extends SubsystemBase  {
+public class Shooter extends SubsystemBase implements Constants {
     private MotorController m_shootController;
     private static Shooter m_instance = null;
 
     private Shooter() {
         
         // initilize controllers by type
-        m_shootController = new WPI_VictorSPX(6);
+        m_shootController = new WPI_TalonSRX(MotorPorts.shoot);
     } 
 
     public static Shooter getInstance() {

@@ -21,18 +21,18 @@ public interface Constants {
         // chassisLeftMiddle = 6,
         // chassisLeftBack = 2,
         chassisRightFront = 12,
-        chassisRightMiddle = 1,
+        chassisRightMiddle = 13,
         chassisLeftFront = 1,
-        chassisLeftMiddle = 153,
+        chassisLeftMiddle = 15,
         chassisLeftBack = 14,
         chassisRightBack = 3,
         chassisMidRight = 13,
-        shoot = 0,
+        shoot = 2,
         passUp = 6,
         collectUpAndDown= 7,
         climb = 4,
         collect = 5,
-        downPasser =2;
+        downPasser =4;
 
         // FLY_WHEEL = 1,
 

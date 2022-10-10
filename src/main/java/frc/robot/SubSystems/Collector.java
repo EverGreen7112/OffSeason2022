@@ -1,5 +1,7 @@
 package frc.robot.SubSystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -8,7 +10,7 @@ public class Collector extends SubsystemBase implements Constants{
     private MotorController m_collectController;
     private static Collector m_instance = null;
     private Collector() {
-        //initilize controllers by type
+        m_collectController = new WPI_VictorSPX(MotorPorts.collect);
     }
     public static Collector getInstance(){
         if(m_instance == null){
